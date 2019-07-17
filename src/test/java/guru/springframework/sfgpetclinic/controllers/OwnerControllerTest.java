@@ -44,18 +44,18 @@ class OwnerControllerTest {
                 .willAnswer(invocation -> {
                     List<Owner> ownerList = new ArrayList<>();
                     String name =invocation.getArgument(0);
-                    if (name.equals("%Pearson%")) {
-                        ownerList.add(new Owner(1L, "Joe", "Pearson"));
-                        return ownerList;
-                    }else if (name.equals("%NotFound%")){
-                        return ownerList;
-                    }else if (name.equals("%Found%")){
-                        ownerList.add(new Owner(1L, "Joe", "Found"));
-                        ownerList.add(new Owner(5L, "Fred", "Found"));
-                        return ownerList;
+                    switch (name){
+                        case "%Pearson%" :
+                            ownerList.add(new Owner(1L, "Joe", "Pearson"));
+                            return ownerList;
+                        case "%NotFound%":
+                            return ownerList;
+                        case "%Found%" :
+                            ownerList.add(new Owner(1L, "Joe", "Found"));
+                            ownerList.add(new Owner(5L, "Fred", "Found"));
+                            return ownerList;
+                        default: throw new RuntimeException("Invalid Argument");
                     }
-
-                    throw new RuntimeException("Invalid Argument");
                 });
     }
 
